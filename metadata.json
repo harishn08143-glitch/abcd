@@ -1,0 +1,30 @@
+{
+  "use_case_id": "16",
+  "project_name": "Case 16: Autonomous Research Assistant",
+  "version": "0.1.0",
+  "description": "Multi-agent system that plans research questions, retrieves papers, summarises findings, synthesises insights, and writes structured reports with citations.",
+  "agents": [
+    {"name": "Research Planner", "role": "Decomposes the question into sub-questions and search plan"},
+    {"name": "Paper Retriever", "role": "Retrieves papers via Semantic Scholar with sample fallback"},
+    {"name": "Summarizer", "role": "Produces structured per-paper summaries"},
+    {"name": "Insight Critic", "role": "Synthesises across papers, flags themes and gaps"},
+    {"name": "Report Writer", "role": "Produces the final structured research report"}
+  ],
+  "framework": "CrewAI",
+  "tools_used": ["crewai", "litellm", "fastapi", "openai-sdk", "semantic-scholar-api"],
+  "data_sources": [
+    "https://api.semanticscholar.org/graph/v1/paper/search",
+    "data/sample_papers.json"
+  ],
+  "models": {
+    "primary": "gpt-4.1 (Compass) / llama3.1:8b (Ollama dev)",
+    "reasoning": "gpt-5.1 (Compass) / llama3.1:8b (Ollama dev)",
+    "embedding": "text-embedding-3-large (Compass) / nomic-embed-text (Ollama dev)"
+  },
+  "output_type": "text",
+  "endpoints": {
+    "primary": "POST /run",
+    "health": "GET /health",
+    "metadata": "GET /metadata"
+  }
+}
